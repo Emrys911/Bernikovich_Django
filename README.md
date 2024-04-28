@@ -1,1 +1,0 @@
-# Bernikovich_Django
