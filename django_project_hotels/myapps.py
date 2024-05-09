@@ -1,4 +1,4 @@
-
+from .models import User, Profile, Hobby, Hotel, Establishment, Comment
 from .models import Person, Hotel
 
 # Создаем отели
