@@ -1,4 +1,3 @@
-from .models import User, Profile, Hobby, Hotel, Establishment, Comment
 from .models import Person, Hotel
 
 # Создаем отели
@@ -60,4 +59,4 @@ for user in selected_users:
 # Выводим первых 5 самых младших людей на сайте
 youngest_people = Person.objects.order_by('age')[:5]
 for person in youngest_people:
-    print
+    print()

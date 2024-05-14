@@ -14,7 +14,7 @@
     </ul>
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Hotels</h1>
+  <h2>Hotels</h2>
   <div class="container">
     <div class="row">
       {% for hotel in hotels %}
@@ -33,6 +33,19 @@
 {% endblock %}
  <!-- Ссылка на главную страницу -->
     <a href="{% url 'index' %}">Back to Home</a>
+<!-- hotel_list.html -->
+{% for hotel in hotels %}
+  <div>
+    <h3>{{ hotel.name }}</h3>
+    <p>Владелец: {{ hotel.owner.name }}</p>
+    <p>Комментарии:</p>
+    <ul>
+      {% for comment in hotel.comments.all %}
+        <li>{{ comment.text }} - {{ comment.author.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
 
 </body>
 </html>
