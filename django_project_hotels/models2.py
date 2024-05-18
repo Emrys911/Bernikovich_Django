@@ -40,3 +40,19 @@ class Hotel(models.Model):
             models.Index(fields='location'),
             models.Index(fields='coments_hotel'),
         }
+
+
+class Room(models.Model):
+    hotel = models.ForeignKey(Hotel, related_name='rooms', on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    customer_full_name = models.CharField(max_length=255)
+    number = models.CharField(max_length=10)
+    is_booked = models.BooleanField(default=False)
+
+
+class Booking(models.Model):
+    room = models.ForeignKey(Room, related_name='bookings', on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    customer_full_name = models.CharField(max_length=255)
