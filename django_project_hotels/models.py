@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django import forms
+from your_app.models import User
+from django.db.models import Avg
 
 
 # Объединенный класс User с полями из обоих определений
@@ -14,6 +16,13 @@ class User(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(150)])
+    users_with_more_than_three_hobbies = User.objects.annotate(num_hobbies=Count('hobbies')).filter(num_hobbies__gt=3)[
+                                         :5]
+    # Вычисляем средний возраст всех пользователей
+    average_age = User.objects.all().aggregate(Avg('age'))['age__avg']
+
+    # Получаем пользователей, чей возраст больше среднего
+    users_above_average_age = User.objects.filter(age__gt=average_age)
 
 
 # Остальные классы моделей
@@ -50,7 +59,8 @@ class Comment(models.Model):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'age']
+        fields = ['username', 'email', 'first_name', 'last_name', 'age', 'hobbies', 'like_sports']
+        users_over_30_who_like_sports = User.objects.filter(age__gt=30, likes_sports=True)
 
 
 class BaseHotelModel(models.Model):

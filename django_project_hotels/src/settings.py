@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar"
+    "rest_framework",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "djangoProject4.urls"
 ROOT_URLCONF = 'django_project_hotels.urls'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 TEMPLATES = [
     {
