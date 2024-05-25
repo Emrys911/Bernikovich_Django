@@ -1,4 +1,42 @@
 from django.db import models
+from rest_framework import serializers
+from models import Hobby
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from serializers import HotelOwnerSerializer
+
+
+class HotelOwnerListCreateAPIView(APIView):
+    # GET для получения списка и POST для создания
+    pass
+
+
+class HotelOwnerRetrieveUpdateAPIView(APIView):
+    # GET для получения одного объекта, PUT для обновления
+    pass
+
+
+class HotelOwnerDeleteAPIView(APIView):
+    # DELETE для удаления объекта
+    pass
+
+
+class HotelOwnerSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    hotel_name = serializers.CharField(max_length=100)
+
+    def create(self, validated_data):  # создание нового владельца отеля
+        return HotelOwner(**validated_data)
+
+    def update(self, isinstance, validated_data):  # обновление информации о владельце отеля
+        isinstance.name = validated_data.get('name', instance.name)
+        return isinstance
+
+
+class HobbySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hobby
+        fields = ['name', 'description']
 
 
 class BaseHotelModel:
