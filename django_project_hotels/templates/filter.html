@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>filter fields</title>
+</head>
+<body>
+
+<form id="myForm">
+
+   <p><label for="textField">name:</label>
+      <input maxlength="25" name="login" id="textField"></p>
+   <p><label for="passField">Пароль:</label>
+      <input type="password" maxlength="25" name="password" id="passField"></p>
+   <p><input type="submit" value="Войти" class="submitField"></p>
+    <p><label for="textField">age:</label>
+      <input maxlength="25" age="age" id="textField"></p>
+     <p><label for="textField">email:</label>
+      <input maxlength="25" email="email" id="textField"></p>
+     <p><label for="textField">name:</label>
+      <input maxlength="25" name="name" id="textField"></p>
+     <p><label for="textField">surname:</label>
+      <input maxlength="25" surname="surname" id="textField"></p>
+    <p><label for="textField">hobby:</label>
+      <input maxlength="25" hobby="hobby" id="textField"></p>
+
+
+
+
+</form>
+
+<button onclick="filterFields()">Фильтровать Поля</button>
+
+<script>
+// Объект для отслеживания частоты использования полей
+var fieldUsage = {
+  'field1': 0,
+  'field2': 0,
+  'field3': 0,
+  'field4': 0
+
+};
+
+
+document.getElementById('myForm').addEventListener('input', function(e) {
+       const fieldName = e.target.name;
+    // Увеличиваем счетчик использования поля, если оно есть в объекте fieldUsage
+    if (fieldUsage.hasOwnProperty(fieldName)) {
+        fieldUsage[fieldName]++;
+    }
+});
+</script>
+
+

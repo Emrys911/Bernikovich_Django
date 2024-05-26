@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fieldset</title>
+</head>
+<body>
+
+<form>
+  <fieldset>
+    <legend>general information:</legend>
+    name:<br>
+      <label>
+          <input type="text" name="firstname" required>
+      </label>
+      <br>
+    Surname:<br>
+      <label>
+          <input type="text" name="lastname" required>
+      </label>
+      <br><br>
+    <input type="button" value="show aditional fields" onclick="showMore()">
+  </fieldset>
+
+  <fieldset id="additionalFields" style="display:none;">
+    <legend>aditional information:</legend>
+    email:<br>
+    <input type="email" name="email">
+    <br>
+    phone:<br>
+    <input type="tel" name="phone">
+    <br>
+  </fieldset>
+</form>
+
+<script>
+function showMore() {
+  document.getElementById('additionalFields').style.display = "block";
+}
+</script>
+
+</body>
+</html>

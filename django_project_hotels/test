@@ -1,0 +1,88 @@
+from django import forms
+from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from models import User
+
+
+class Models:
+    pass
+
+
+class User:
+    class User(models.Model):
+        name = models.CharField(max_length=100)
+        age = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(150)])
+
+
+class Hotel(models.Model):
+    name = models.CharField(max_length=100)
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+
+class User(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    age = models.IntegerField()
+    photo = models.ImageField(upload_to='user_photos', blank=True, null=True)
+
+    class User(models.Model):
+        name = models.CharField(max_length=100)
+        age = models.IntegerField()
+
+    class UserForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['age', 'photo']
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Дополнительные поля профиля
+
+
+class Hobby(models.Model):
+    name = models.CharField(max_length=100)
+    users = models.ManyToManyField(User)
+
+
+class Hotel(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class Establishment(models.Model):
+    name = models.CharField(max_length=100)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+
+
+class Comment(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    establishment = models.ForeignKey(Establishment, on_delete=models.CASCADE)
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=40)
+    age = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Hotel(models.Model):
+    name = models.CharField(max_length=40)
+    stars = models.IntegerField()
+    address = models.CharField(max_length=40)
+    city = models.CharField(max_length=40)
+    phone = models.CharField(max_length=40)
+
+    user1 = User.objects.create(name="Alice", age=25)
+    user2 = User.objects.create(name="Bob", age=35)
+    hotel = Hotel.objects.create(name="B&B")
+    users_over_30 = User.objects.filter(age__gt=30, profile__hotel__name="B&B")
+    girls_with_many_hobbies = User.objects.filter(profile__gender="female", hobby__count__gt=3)[:5]
+    top_establishments = Establishment.objects.filter(hotel__rating=5)
+    comments = Comment.objects.filter(hotel__name="B&B", user__age__range=(20, 30))
+    bb_owner_profile = Profile.objects.get(hotel__name="B&B", is_owner=True)
+
+    def __str__(self):
+        return self.name

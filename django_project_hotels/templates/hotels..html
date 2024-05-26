@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+</head>
+<body>
+  <h1>Hotels</h1>
+    <ul>
+        {% for hotel in hotels %}
+            <li>{{ hotel.name }} - {{ hotel.address }} - {{ hotel.stars }}</li>
+        {% endfor %}
+    </ul>
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Hotels</h2>
+  <div class="container">
+    <div class="row">
+      {% for hotel in hotels %}
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ hotel.name }}</h5>
+              <p class="card-text">Address: {{ hotel.address }}</p>
+              <p class="card-text">Stars: {{ hotel.stars }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+ <!-- Ссылка на главную страницу -->
+    <a href="{% url 'index' %}">Back to Home</a>
+<!-- hotel_list.html -->
+{% for hotel in hotels %}
+  <div>
+    <h3>{{ hotel.name }}</h3>
+    <p>Владелец: {{ hotel.owner.name }}</p>
+    <p>Комментарии:</p>
+    <ul>
+      {% for comment in hotel.comments.all %}
+        <li>{{ comment.text }} - {{ comment.author.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+
+</body>
+</html>

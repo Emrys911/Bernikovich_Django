@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.name }} - {{ user.age }}</li>
+        {% endfor %}
+    </ul>
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Users</h1>
+  <div class="container">
+    <div class="row">
+      {% for user in users %}
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ user.name }}</h5>
+              <p class="card-text">Age: {{ user.age }}</p>
+              <p class="card-text">Comments:</p>
+              <ul>
+                {% for comment in user.comment %}
+                  <li>{{ comment }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+{% extends 'base.html' %}
+{% block content1 %}
+  <h2>User Profile</h2>
+  <p>Name: {{ user.username }}</p>
+  <p>Age: {{ user.userprofile.age }}</p>
+  {% if user.userprofile.photo %}
+    <img src="{{ user.userprofile.photo.url }}" alt="User Photo">
+  {% else %}
+    <p>No photo available</p>
+  {% endif %}
+{% endblock %}
+  <!-- Ссылка на главную страницу -->
+    <a href="{% url 'index' %}">Back to Home</a>
+   <!-- Ссылка на главную страницу -->
+    Back to Home
+</body>
+</html>
